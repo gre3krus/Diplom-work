@@ -1,0 +1,297 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  margin: 0;
+  background-color: #F8F4FF;
+  font-family: 'Comfortaa', sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+html, body {
+  height: 100%;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 24px;
+  color: #5D3FD3;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+p {
+  margin: 0;
+}
+
+header {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+  padding: 25px 30px;
+  background: rgba(var(--color-white), 0.1);
+  box-shadow: 0 8px 32px 0 rgba(var(--color-white), 0.1);
+  transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+  z-index: 1000;
+  box-sizing: border-box;
+
+  position: sticky;
+  top: 0;
+  left: 0;
+  backdrop-filter: blur(18px);
+}
+
+/* Линия под header */
+.header-bottom-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #2C3E50;
+  border-radius: 1px;
+}
+
+/* Панель управления */
+.control-panel {
+  display: flex;
+  gap: 20px;
+  margin-right: 70px;
+}
+
+.control-panel span {
+  color: #2C3E50;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  padding-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 18px;
+  user-select: none;
+}
+
+.material-icons {
+  font-size: 20px;
+  color: #2C3E50;
+  line-height: 1;
+}
+
+.control-panel span::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background-color: #5D3FD3;
+  transition: width 0.4s ease;
+  border-radius: 1px;
+}
+
+.control-panel span:hover::after {
+  width: 100%;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Карточка фиксированного размера */
+.card {
+  display: flex;
+  width: 1800px;
+  height: 650px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 25px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  color: #2C3E50;
+  overflow: hidden;
+  user-select: none;
+  flex-direction: row;
+}
+
+/* Сайдбар слева */
+.sidebar {
+  width: 215px;
+  background-color: #5D3FD3;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  padding: 30px 15px;
+  box-sizing: border-box;
+}
+
+.sidebar-btn {
+  background: none;
+  border: none;
+  color: #F8F4FF;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  padding: 8px 12px;
+  border-radius: 15px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  user-select: none;
+  outline-offset: 2px;
+}
+
+.sidebar-btn .material-icons {
+  font-size: 24px;
+  line-height: 1;
+  color: inherit;
+  user-select: none;
+}
+
+.sidebar-btn.active,
+.sidebar-btn:hover {
+  background-color: #7B66F7;
+  color: #fff;
+}
+
+/* Контент справа */
+.content {
+  flex: 1;
+  padding: 30px 35px;
+  overflow-y: auto;
+  font-size: 18px;
+  line-height: 1.5;
+  word-spacing: 7px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Стили для учебника */
+.textbook-chapter {
+  display: none;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.textbook-chapter.active {
+  display: flex;
+}
+
+.textbook-chapter h2 {
+  font-size: 22px;
+  color: #5D3FD3;
+  margin: 0 0 10px 0;
+}
+
+.textbook-content {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #2C3E50;
+}
+
+/* Навигация учебника */
+.textbook-navigation {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 15px;
+  border-top: 1px solid rgba(93, 63, 211, 0.3);
+  user-select: none;
+}
+
+.nav-arrow {
+  cursor: pointer;
+  font-size: 28px;
+  color: #5D3FD3;
+  user-select: none;
+  transition: color 0.3s ease;
+}
+
+.nav-arrow.disabled {
+  color: #ccc;
+  cursor: default;
+}
+
+.page-numbers {
+  display: flex;
+  gap: 10px;
+}
+
+.page-numbers button {
+  background: none;
+  border: none;
+  color: #5D3FD3;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 10px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.page-numbers button.active,
+.page-numbers button:hover {
+  background-color: #7B66F7;
+  color: #fff;
+}
+
+/* Содержание: список */
+.content-list {
+  list-style: none;
+  padding-left: 0;
+  font-size: 18px;
+  color: #2C3E50;
+  cursor: pointer;
+}
+
+.content-list li {
+  margin-bottom: 12px;
+  padding-left: 10px;
+  border-left: 3px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.content-list li:hover {
+  border-left-color: #5D3FD3;
+}
+
+.content-list li a {
+  text-decoration: none;
+  color: inherit;
+  user-select: none;
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  height: 100px;
+  padding: 15px 0;
+  background-color: #2C3E50;
+  color: #F8F4FF;
+  font-size: 16px;
+  font-weight: 500;
+  user-select: none;
+}
