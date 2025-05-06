@@ -1,48 +1,33 @@
-const header = document.querySelector("header");
-const headerTitle = document.getElementById("header-title");
-const fullText = "Инженерная компьютерная графика";
-const shortText = "ИКГ";
-
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 50) {
-    header.classList.add("scrolled");
-    headerTitle.textContent = shortText;
-  } else {
-    header.classList.remove("scrolled");
-    headerTitle.textContent = fullText;
-  }
-});
-
+// --- Сайдбар ---
 const btnAnnotation = document.getElementById("btn-annotation");
 const btnContent = document.getElementById("btn-content");
 const btnTextbook = document.getElementById("btn-textbook");
 const contentArea = document.getElementById("content-area");
 
+// --- Панель управления ---
+const lecturesBtn = document.getElementById("lectures-btn");
+const practicalBtn = document.getElementById("practical-btn");
+const testsBtn = document.getElementById("tests-btn");
+
 let textbookChapters = [];
 let currentChapterIndex = 0;
 
-// Загрузка данных из JSON
-async function loadTextbookChapters() {
-  try {
-    const response = await fetch("./textbookChapters.json");
-    if (!response.ok) throw new Error("Ошибка загрузки учебника");
-    textbookChapters = await response.json();
-  } catch (error) {
-    console.error(error);
-    contentArea.innerHTML =
-      '<p style="color:red;">Не удалось загрузить учебник. Попробуйте обновить страницу.</p>';
-  }
-}
-
-// Установка активной кнопки
-function setActiveButton(activeBtn) {
+// --- Функция подсветки кнопок сайдбара ---
+function setSidebarActiveButton(activeBtn) {
   [btnAnnotation, btnContent, btnTextbook].forEach((btn) => {
     btn.classList.toggle("active", btn === activeBtn);
     btn.setAttribute("aria-selected", btn === activeBtn ? "true" : "false");
   });
 }
 
-// Контент для вкладок Аннотация и Содержание
+// --- Функция подсветки кнопок панели управления ---
+function setActiveControlPanelButton(activeBtn) {
+  [lecturesBtn, practicalBtn, testsBtn].forEach((btn) => {
+    btn.classList.toggle("active", btn === activeBtn);
+  });
+}
+
+// --- Контент для Аннотации ---
 const annotationContent = `
   <h1>Аннотация</h1>
   <span>
@@ -62,6 +47,7 @@ const annotationContent = `
   </span>
 `;
 
+// --- Генерация списка содержания ---
 function generateContentList() {
   return `
     <h1>Содержание</h1>
@@ -77,7 +63,7 @@ function generateContentList() {
   `;
 }
 
-// Генерация HTML учебника с навигацией
+// --- Генерация HTML учебника с навигацией ---
 function generateTextbookHTML() {
   const chaptersHTML = textbookChapters
     .map(
@@ -120,15 +106,17 @@ function generateTextbookHTML() {
   `;
 }
 
+// --- Показать Аннотацию ---
 function showAnnotation() {
   contentArea.innerHTML = annotationContent;
-  setActiveButton(btnAnnotation);
+  setSidebarActiveButton(btnAnnotation);
   contentArea.focus();
 }
 
+// --- Показать Содержание ---
 function showContent() {
   contentArea.innerHTML = generateContentList();
-  setActiveButton(btnContent);
+  setSidebarActiveButton(btnContent);
   contentArea.focus();
 
   // Обработчики кликов по пунктам содержания
@@ -142,9 +130,10 @@ function showContent() {
   });
 }
 
+// --- Показать Учебник ---
 function showTextbook(scrollToChapterId = null) {
   contentArea.innerHTML = generateTextbookHTML();
-  setActiveButton(btnTextbook);
+  setSidebarActiveButton(btnTextbook);
   contentArea.focus();
 
   const chapters = contentArea.querySelectorAll(".textbook-chapter");
@@ -196,7 +185,60 @@ function showTextbook(scrollToChapterId = null) {
   }
 }
 
-// Инициализация после загрузки JSON
+// --- Загрузка учебника из JSON ---
+async function loadTextbookChapters() {
+  try {
+    const response = await fetch("./textbookChapters.json");
+    if (!response.ok) throw new Error("Ошибка загрузки учебника");
+    textbookChapters = await response.json();
+  } catch (error) {
+    console.error(error);
+    contentArea.innerHTML =
+      '<p style="color:red;">Не удалось загрузить учебник. Попробуйте обновить страницу.</p>';
+  }
+}
+
+// --- Загрузка HTML страниц в main (для панели управления) ---
+const mainElement = document.querySelector("main");
+
+async function loadPageInMain(url) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`Ошибка загрузки: ${response.status}`);
+    const html = await response.text();
+    mainElement.innerHTML = html;
+  } catch (err) {
+    console.error(err);
+    mainElement.innerHTML =
+      '<p style="color:red;">Ошибка загрузки контента. Попробуйте позже.</p>';
+  }
+}
+
+// --- Обработчики панели управления ---
+lecturesBtn.addEventListener("click", () => {
+  loadPageInMain("./pages/lectures/lectures.html");
+  setActiveControlPanelButton(lecturesBtn);
+});
+
+practicalBtn.addEventListener("click", () => {
+  loadPageInMain("./pages/practical.html");
+  setActiveControlPanelButton(practicalBtn);
+});
+
+testsBtn.addEventListener("click", () => {
+  loadPageInMain("./pages/tests.html");
+  setActiveControlPanelButton(testsBtn);
+});
+
+const headerLogo = document.getElementById("header-title");
+if (headerLogo) {
+  headerLogo.style.cursor = "pointer";
+  headerLogo.addEventListener("click", () => {
+    window.location.href = "index.html";
+  });
+}
+
+// --- Инициализация ---
 async function init() {
   await loadTextbookChapters();
 
@@ -208,19 +250,6 @@ async function init() {
 
   // Экспорт функции для вызова из содержания
   window.showTextbook = showTextbook;
-}
-
-// Загрузка учебника из JSON
-async function loadTextbookChapters() {
-  try {
-    const response = await fetch("./textbookChapters.json");
-    if (!response.ok) throw new Error("Ошибка загрузки учебника");
-    textbookChapters = await response.json();
-  } catch (error) {
-    console.error(error);
-    contentArea.innerHTML =
-      '<p style="color:red;">Не удалось загрузить учебник. Попробуйте обновить страницу.</p>';
-  }
 }
 
 init();

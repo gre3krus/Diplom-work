@@ -105,6 +105,12 @@ header {
   width: 100%;
 }
 
+.control-panel span.active {
+  color: #7B66F7; /* или другой цвет для выделения */
+  font-weight: 700;
+}
+
+
 main {
   flex: 1;
   display: flex;
