@@ -116,7 +116,7 @@ main {
 .card {
   display: flex;
   width: 1800px;
-  height: 650px;
+  height: 680px;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -173,7 +173,7 @@ main {
 /* Контент справа */
 .content {
   flex: 1;
-  padding: 30px 35px;
+  padding: 25px 35px;
   overflow-y: auto;
   font-size: 18px;
   line-height: 1.5;
