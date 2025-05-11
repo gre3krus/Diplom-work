@@ -4,11 +4,6 @@ const btnContent = document.getElementById("btn-content");
 const btnTextbook = document.getElementById("btn-textbook");
 const contentArea = document.getElementById("content-area");
 
-// --- Панель управления ---
-const lecturesBtn = document.getElementById("lectures-btn");
-const practicalBtn = document.getElementById("practical-btn");
-const testsBtn = document.getElementById("tests-btn");
-
 let textbookChapters = [];
 let currentChapterIndex = 0;
 
@@ -213,22 +208,6 @@ async function loadPageInMain(url) {
       '<p style="color:red;">Ошибка загрузки контента. Попробуйте позже.</p>';
   }
 }
-
-// --- Обработчики панели управления ---
-lecturesBtn.addEventListener("click", () => {
-  loadPageInMain("./pages/lectures/lectures.html");
-  setActiveControlPanelButton(lecturesBtn);
-});
-
-practicalBtn.addEventListener("click", () => {
-  loadPageInMain("./pages/practical.html");
-  setActiveControlPanelButton(practicalBtn);
-});
-
-testsBtn.addEventListener("click", () => {
-  loadPageInMain("./pages/tests.html");
-  setActiveControlPanelButton(testsBtn);
-});
 
 const headerLogo = document.getElementById("header-title");
 if (headerLogo) {
