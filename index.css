@@ -120,13 +120,15 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  margin 25px 0
 }
 
 /* Карточка фиксированного размера */
 .card {
   display: flex;
-  width: 1800px;
-  height: 680px;
+  width: 95vw;
+  height: 90vh;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
