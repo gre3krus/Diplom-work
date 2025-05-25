@@ -2,6 +2,7 @@
 const btnAnnotation = document.getElementById("btn-annotation");
 const btnContent = document.getElementById("btn-content");
 const btnTextbook = document.getElementById("btn-textbook");
+const btnKnowledgeBase = document.getElementById("btn-knowledge-base");
 const contentArea = document.getElementById("content-area");
 
 let textbookChapters = [];
@@ -9,7 +10,7 @@ let currentChapterIndex = 0;
 
 // --- Функция подсветки кнопок сайдбара ---
 function setSidebarActiveButton(activeBtn) {
-  [btnAnnotation, btnContent, btnTextbook].forEach((btn) => {
+  [btnAnnotation, btnContent, btnTextbook, btnKnowledgeBase].forEach((btn) => {
     btn.classList.toggle("active", btn === activeBtn);
     btn.setAttribute("aria-selected", btn === activeBtn ? "true" : "false");
   });
@@ -40,6 +41,25 @@ const annotationContent = `
     для самостоятельного изучения, так и в качестве учебного пособия на
     занятиях.
   </span>
+`;
+
+// --- Контент для Базы знаний ---
+const knowledgeBaseContent = `
+  <h1>База знаний</h1>
+  <p>Добро пожаловать в базу знаний по инженерной компьютерной графике. Здесь вы найдете полезные советы, которые помогут углубить ваши знания и навыки.</p>
+  <div style="text-align:center; margin: 20px 0;">
+      <iframe
+        width="720"
+        height="405"
+        src="https://rutube.ru/play/embed/8ed5b7aec52a39722ff6d3aa89b6b9ed"
+        frameBorder="0"
+        allow="clipboard-write; autoplay"
+        webkitAllowFullScreen
+        mozallowfullscreen
+        allowFullScreen
+      ></iframe>
+    
+  </div>
 `;
 
 // --- Генерация списка содержания ---
@@ -180,6 +200,13 @@ function showTextbook(scrollToChapterId = null) {
   }
 }
 
+// --- Показать Базу знаний ---
+function showKnowledgeBase() {
+  contentArea.innerHTML = knowledgeBaseContent;
+  setSidebarActiveButton(btnKnowledgeBase);
+  contentArea.focus();
+}
+
 // --- Загрузка учебника из JSON ---
 async function loadTextbookChapters() {
   try {
@@ -226,6 +253,7 @@ async function init() {
   btnAnnotation.addEventListener("click", showAnnotation);
   btnContent.addEventListener("click", showContent);
   btnTextbook.addEventListener("click", () => showTextbook());
+  btnKnowledgeBase.addEventListener("click", showKnowledgeBase);
 
   // Экспорт функции для вызова из содержания
   window.showTextbook = showTextbook;
