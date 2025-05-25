@@ -46,18 +46,56 @@ const annotationContent = `
 // --- Контент для Базы знаний ---
 const knowledgeBaseContent = `
   <h1>База знаний</h1>
-  <p>Добро пожаловать в базу знаний по инженерной компьютерной графике. Здесь вы найдете полезные советы, которые помогут углубить ваши знания и навыки.</p>
-  <div style="text-align:center; margin: 20px 0;">
+  <p>Добро пожаловать в базу знаний по инженерной компьютерной графике. Здесь вы найдете полезные советы и обучающие материалы, которые помогут углубить ваши знания и навыки в области проектирования, черчения и моделирования.</p>
+  
+  <p>Ниже представлены три видеолекции, раскрывающие фундаментальные и практические аспекты инженерной графики, от основ дисциплины до конкретных техник работы в популярных CAD-системах.</p>
+  
+  <div style="display: flex; flex-direction: column; gap: 40px; margin-top: 30px;">
+  
+    <section style="text-align: center;">
+      <h3>Видео 1: Лекция «Предмет Инженерная и компьютерная графика»</h3>
+      <p>В этой лекции дается общее представление о дисциплине инженерной и компьютерной графики, её задачах, значении и области применения в современной инженерии.</p>
       <iframe
         width="720"
         height="405"
         src="https://rutube.ru/play/embed/8ed5b7aec52a39722ff6d3aa89b6b9ed"
-        frameBorder="0"
+        frameborder="0"
         allow="clipboard-write; autoplay"
-        webkitAllowFullScreen
+        webkitallowfullscreen
         mozallowfullscreen
-        allowFullScreen
+        allowfullscreen
       ></iframe>
+    </section>
+    
+    <section style="text-align: center;">
+      <h3>Видео 2: Инженерная компьютерная графика (Черчение) — часть 1</h3>
+      <p>Первый практический урок по черчению в инженерной графике, где рассматриваются базовые техники создания чертежей и правила оформления технической документации.</p>
+      <iframe
+        width="720"
+        height="405"
+        src="https://rutube.ru/play/embed/263ec743ae696660441fddc2c51a29eb"
+        frameborder="0"
+        allow="clipboard-write; autoplay"
+        webkitallowfullscreen
+        mozallowfullscreen
+        allowfullscreen
+      ></iframe>
+    </section>
+    
+    <section style="text-align: center;">
+      <h3>Видео 3: Построение третьего вида в КОМПАС через 2D и сравнение с построением через 3D</h3>
+      <p>Демонстрация построения третьего вида детали в системе КОМПАС с использованием двухмерного черчения и сравнение с трехмерным моделированием, что помогает понять преимущества и особенности каждого подхода.</p>
+      <iframe
+        width="720"
+        height="405"
+        src="https://rutube.ru/play/embed/62116ef2c6120f0d9394e12887f3b36b"
+        frameborder="0"
+        allow="clipboard-write; autoplay"
+        webkitallowfullscreen
+        mozallowfullscreen
+        allowfullscreen
+      ></iframe>
+    </section>
     
   </div>
 `;
