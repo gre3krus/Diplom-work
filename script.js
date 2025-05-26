@@ -321,137 +321,354 @@ const glossaryContent = `
   </style>
 `;
 
-// --- Контент для Обратной связи ---
 const feedbackContent = `
+  <div class="feedback-page">
     <h1>Обратная связь</h1>
-    <span>Пожалуйста, заполните форму ниже, чтобы отправить нам ваши вопросы или предложения.</span>
-  <div class="feedback-container">
-    <form id="feedback-form" class="feedback-form">
-      <div class="form-group">
-        <label for="first-name">Имя:</label>
-        <input type="text" id="first-name" name="first-name" required>
-        <span class="error-message"></span>
+    <p class="feedback-intro">Пожалуйста, заполните форму ниже, чтобы отправить нам ваши вопросы или предложения.</p>
+    
+    <div class="feedback-container">
+      <form id="feedback-form" class="feedback-form">
+        <div class="form-group">
+          <label for="first-name">Имя:</label>
+          <input type="text" id="first-name" name="first-name" required>
+          <span class="error-message"></span>
+        </div>
+        
+        <div class="form-group">
+          <label for="phone">Номер телефона:</label>
+          <input 
+            type="tel" 
+            id="phone" 
+            name="phone"
+            placeholder="+7 (___) ___-__-__"
+            pattern="\+7\s\(\d{3}\)\s\d{3}-\d{2}-\d{2}"
+            required
+            data-mask="+7 (###) ###-##-##"
+          >
+          <span class="error-message"></span>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required>
+          <span class="error-message"></span>
+        </div>
+        
+        <div class="form-group">
+          <label for="comment">Ваш комментарий:</label>
+          <textarea id="comment" name="comment" rows="5" required></textarea>
+          <span class="error-message"></span>
+        </div>
+        
+        <button type="submit" class="submit-btn">Отправить сообщение</button>
+      </form>
+    </div>
+
+    <div class="contacts-section">
+      <h2>Наши контакты</h2>
+      <div class="contacts-grid">
+        <div class="contact-card">
+          <div class="contact-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#5d3fd3">
+              <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+            </svg>
+          </div>
+          
+          <div class="contact-info">
+            <h3>Электронная почта</h3>
+            <a href="mailto:creatorbook@gmail.com" class="contact-link">
+              creatorbook@gmail.com
+            </a>
+          </div>
+        </div>
+        
+        <div class="contact-card">
+          <div class="contact-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#5d3fd3">
+              <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/>
+            </svg>
+          </div>
+          <div class="contact-info">
+            <h3>Телефон</h3>
+            <a href="tel:88005553535" class="contact-link">
+              8 800 555 35 35
+            </a>
+          </div>
+        </div>
+        
+        <div class="contact-card">
+          <div class="contact-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#5d3fd3">
+      <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.2 3.2.8-1.3-4.5-2.7V7z"/>
+    </svg>
+          </div>
+          <div class="contact-info">
+            <h3>Режим работы</h3>
+            <p class="work-hours">
+              <span class="days">ПН-ПТ:</span> 9:00–18:00
+            </p>
+            <p class="work-hours">
+              <span class="days">СБ-ВС:</span> выходной
+            </p>
+          </div>
+        </div>
+
+        <div class="contact-card">
+  <div class="contact-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#5d3fd3">
+      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+    </svg>
+  </div>
+  <div class="contact-info">
+    <p class="address">
+      <strong>Адрес:</strong> г. Сызрань,
+      ул. Гидротурбинная, д. 9
+    </p>
+    <p class="website">
+      <strong>Сайт:</strong> 
+      <a href="https://spk.minobr63.ru/" target="_blank" rel="noopener noreferrer" class="website-link">
+        spk.minobr63.ru
+      </a>
+    </p>
+  </div>
+</div>
+
       </div>
-      
-      <div class="form-group">
-        <label for="phone">Номер телефона:</label>
-        <input 
-        type="tel" 
-        id="phone" 
-        name="phone"
-        placeholder="+7 (___) ___-__-__"
-        pattern="\+7\s\(\d{3}\)\s\d{3}-\d{2}-\d{2}"
-        required
-        data-mask="+7 (###) ###-##-##"
-        >
-        <span class="error-message"></span>
-      </div>
-      
-      <div class="form-group">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        <span class="error-message"></span>
-      </div>
-      
-      <div class="form-group">
-        <label for="comment">Ваш комментарий:</label>
-        <textarea id="comment" name="comment" rows="5" required></textarea>
-        <span class="error-message"></span>
-      </div>
-      
-      <button type="submit" class="submit-btn">Отправить</button>
-    </form>
+    </div>
   </div>
 
   <style>
-    .feedback-container {
-      width: 700px;
+    .feedback-page {
+      max-width: 800px;
       margin: 0 auto;
       padding: 20px;
-      border-radius: 8px;
+      color: #333;
+    }
+    
+    .feedback-page h1 {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    
+    .feedback-intro {
+      text-align: center;
+      color: #555;
+      margin-bottom: 30px;
+      font-size: 1.1em;
+      line-height: 1.5;
+    }
+    
+    .feedback-container {
+      background: #fff;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      margin-bottom: 40px;
     }
     
     .feedback-form {
       display: flex;
       flex-direction: column;
+      gap: 5px;
     }
     
     .form-group {
       display: flex;
       flex-direction: column;
-      gap: 5px;
     }
     
-    label {
+    .form-group label {
       font-weight: 500;
-      color: #333;
+      margin-bottom: 8px;
+      color: #444;
     }
     
-    input, textarea {
-      padding: 10px;
+    .form-group input,
+    .form-group textarea {
+      padding: 12px 15px;
       border: 1px solid #ddd;
-      border-radius: 4px;
+      border-radius: 8px;
       font-size: 16px;
+      transition: all 0.3s ease;
     }
     
-    textarea {
+    .form-group textarea {
+      min-height: 120px;
       resize: vertical;
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: #5d3fd3;
+      box-shadow: 0 0 0 3px rgba(93, 63, 211, 0.1);
+      outline: none;
     }
     
     .error-message {
       color: #e74c3c;
-      font-size: 14px;
-      height: 16px;
+      font-size: 13px;
+      margin-top: 5px;
+      min-height: 18px;
     }
     
     .submit-btn {
-      background-color: #3498db;
+      background: #5d3fd3;
       color: white;
       border: none;
-      padding: 12px 20px;
-      border-radius: 4px;
-      cursor: pointer;
+      padding: 14px 20px;
+      border-radius: 8px;
       font-size: 16px;
-      transition: background-color 0.3s;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
     }
     
     .submit-btn:hover {
-      background-color: #2980b9;
+      background: #4a32a8;
+      transform: translateY(-2px);
     }
     
-    input:invalid, textarea:invalid {
-      border-color: #5d3fd3;;
-    }
-    
-    .success-message {
+    /* Контакты */
+    .contacts-section {
       text-align: center;
-      padding: 20px;
-      color: white;
-      border-radius: 8px;
-      margin-top: 20px;
+      margin-top: 30px;
+    }
+    
+    .contacts-section h2 {
+      color: #2c3e50;
+      position: relative;
+      display: inline-block;
+      margin-bottom: 40px;
+      font-size: 24px;
+    }
+    
+    .contacts-section h2::after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: #5d3fd3;
+      border-radius: 3px;
+    }
+    
+    .contacts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+    
+    .contact-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      display: flex;
+      align-items: center;
+      text-align: left;
+      transition: all 0.3s ease;
+    }
+    
+    .contact-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+      background: rgba(93, 63, 211, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 20px;
+      flex-shrink: 0;
+    }
+    
+    .contact-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+    
+    .contact-info h3 {
+      color: #333;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+    
+    .contact-link {
+      color: #555;
+      text-decoration: none;
+      transition: color 0.3s;
+      display: block;
+      margin-bottom: 5px;
+    }
+    
+    .contact-link:hover {
+      color: #5d3fd3;
+    }
+    
+    .work-hours {
+      color: #555;
+      margin: 5px 0;
+    }
+    
+    .days {
+      font-weight: 500;
+      color: #444;
+    }
+    
+    /* Адаптивность */
+    @media (max-width: 768px) {
+      .feedback-container {
+        padding: 20px;
+      }
+      
+      .contacts-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .contact-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+      }
+      
+      .contact-icon {
+        margin-right: 0;
+        margin-bottom: 15px;
+      }
     }
 
-     #phone {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-    transition: border-color 0.3s;
+    .address {
+    color: #555;
+    margin: 8px 0;
+    line-height: 1.5;
   }
   
-  #phone:focus {
-    border-color: #5d3fd3;
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(93, 63, 211, 0.2);
+  .website {
+    color: #555;
+    margin: 8px 0;
   }
   
-  #phone:invalid:not(:placeholder-shown) {
-    border-color: #ff4d4d;
+  .website-link {
+    color: #5d3fd3;
+    text-decoration: none;
+    transition: color 0.3s;
   }
-
-  #phone:invalid:not(:placeholder-shown) + .error-message {
-    display: block;
+  
+  .website-link:hover {
+    color: #4a32a8;
+    text-decoration: underline;
+  }
+  
+  .contact-info strong {
+    color: #333;
+    font-weight: 500;
   }
   </style>
 `;
@@ -641,9 +858,7 @@ function showSuccessMessage() {
     .success-message {
       text-align: center;
       padding: 40px 30px;
-      background: #f8f9fa;
       border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
       max-width: 500px;
       margin: 0 auto;
       position: relative;
