@@ -4,6 +4,7 @@ const btnContent = document.getElementById("btn-content");
 const btnTextbook = document.getElementById("btn-textbook");
 const btnKnowledgeBase = document.getElementById("btn-knowledge-base");
 const btnGlossary = document.getElementById("btn-glossary");
+const btnFeedback = document.getElementById("btn-feedback");
 const contentArea = document.getElementById("content-area");
 
 let textbookChapters = [];
@@ -17,6 +18,7 @@ function setSidebarActiveButton(activeBtn) {
     btnTextbook,
     btnKnowledgeBase,
     btnGlossary,
+    btnFeedback,
   ].forEach((btn) => {
     btn.classList.toggle("active", btn === activeBtn);
     btn.setAttribute("aria-selected", btn === activeBtn ? "true" : "false");
@@ -319,6 +321,141 @@ const glossaryContent = `
   </style>
 `;
 
+// --- Контент для Обратной связи ---
+const feedbackContent = `
+    <h1>Обратная связь</h1>
+    <span>Пожалуйста, заполните форму ниже, чтобы отправить нам ваши вопросы или предложения.</span>
+  <div class="feedback-container">
+    <form id="feedback-form" class="feedback-form">
+      <div class="form-group">
+        <label for="first-name">Имя:</label>
+        <input type="text" id="first-name" name="first-name" required>
+        <span class="error-message"></span>
+      </div>
+      
+      <div class="form-group">
+        <label for="phone">Номер телефона:</label>
+        <input 
+        type="tel" 
+        id="phone" 
+        name="phone"
+        placeholder="+7 (___) ___-__-__"
+        pattern="\+7\s\(\d{3}\)\s\d{3}-\d{2}-\d{2}"
+        required
+        data-mask="+7 (###) ###-##-##"
+        >
+        <span class="error-message"></span>
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <span class="error-message"></span>
+      </div>
+      
+      <div class="form-group">
+        <label for="comment">Ваш комментарий:</label>
+        <textarea id="comment" name="comment" rows="5" required></textarea>
+        <span class="error-message"></span>
+      </div>
+      
+      <button type="submit" class="submit-btn">Отправить</button>
+    </form>
+  </div>
+
+  <style>
+    .feedback-container {
+      width: 700px;
+      margin: 0 auto;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    
+    .feedback-form {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    
+    label {
+      font-weight: 500;
+      color: #333;
+    }
+    
+    input, textarea {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    
+    textarea {
+      resize: vertical;
+    }
+    
+    .error-message {
+      color: #e74c3c;
+      font-size: 14px;
+      height: 16px;
+    }
+    
+    .submit-btn {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+    
+    .submit-btn:hover {
+      background-color: #2980b9;
+    }
+    
+    input:invalid, textarea:invalid {
+      border-color: #5d3fd3;;
+    }
+    
+    .success-message {
+      text-align: center;
+      padding: 20px;
+      color: white;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+
+     #phone {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+  }
+  
+  #phone:focus {
+    border-color: #5d3fd3;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(93, 63, 211, 0.2);
+  }
+  
+  #phone:invalid:not(:placeholder-shown) {
+    border-color: #ff4d4d;
+  }
+
+  #phone:invalid:not(:placeholder-shown) + .error-message {
+    display: block;
+  }
+  </style>
+`;
+
 // --- Генерация списка содержания ---
 function generateContentList() {
   return `
@@ -407,6 +544,187 @@ function showGlossary() {
   contentArea.innerHTML = glossaryContent;
   setSidebarActiveButton(btnGlossary);
   contentArea.focus();
+}
+
+// --- Показать Обратную связь ---
+function showFeedback() {
+  contentArea.innerHTML = feedbackContent;
+  setSidebarActiveButton(btnFeedback);
+  contentArea.focus();
+
+  const form = document.getElementById("feedback-form");
+  const phoneInput = document.getElementById("phone");
+
+  // Маска ввода телефона
+  phoneInput.addEventListener("input", function (e) {
+    const x = e.target.value
+      .replace(/\D/g, "")
+      .match(/(\d{0,1})(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
+
+    e.target.value = !x[2]
+      ? "+7"
+      : `+7 (${x[2]}${x[3] ? `) ${x[3]}` : ""}${x[4] ? `-${x[4]}` : ""}${
+          x[5] ? `-${x[5]}` : ""
+        }`;
+  });
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    // Проверка валидности формы
+    if (validateForm()) {
+      // В реальном приложении здесь был бы AJAX-запрос к серверу
+      showSuccessMessage();
+    }
+  });
+}
+
+// --- Валидация формы ---
+function validateForm() {
+  let isValid = true;
+  const form = document.getElementById("feedback-form");
+  const inputs = form.querySelectorAll("input, textarea");
+
+  inputs.forEach((input) => {
+    const errorMessage = input.nextElementSibling;
+
+    if (!input.value.trim()) {
+      errorMessage.textContent = "Это поле обязательно для заполнения";
+      isValid = false;
+    } else if (input.type === "email" && !validateEmail(input.value)) {
+      errorMessage.textContent = "Пожалуйста, введите корректный email";
+      isValid = false;
+    } else if (input.id === "phone" && !validatePhone(input.value)) {
+      errorMessage.textContent = "Пожалуйста, введите корректный номер";
+      isValid = false;
+    } else {
+      errorMessage.textContent = "";
+    }
+  });
+
+  return isValid;
+}
+
+// --- Валидация email ---
+function validateEmail(email) {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
+}
+
+// --- Валидация телефона ---
+function validatePhone(phone) {
+  const re = /^\+7\s\(\d{3}\)\s\d{3}-\d{2}-\d{2}$/;
+  return re.test(phone);
+}
+
+// --- Показать сообщение об успешной отправке ---
+function showSuccessMessage() {
+  const form = document.getElementById("feedback-form");
+  form.style.display = "none";
+
+  const successHTML = `
+  <div class="success-message">
+    <div class="success-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24">
+        <path fill="#3fd35d" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+      </svg>
+    </div>
+    <h2>Спасибо за ваш отзыв!</h2>
+    <p>Ваше сообщение успешно доставлено.</p>
+    <div class="success-decoration">
+      <div class="decoration-circle"></div>
+      <div class="decoration-circle"></div>
+    </div>
+  </div>
+
+  <style>
+    .success-message {
+      text-align: center;
+      padding: 40px 30px;
+      background: #f8f9fa;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      max-width: 500px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      animation: fadeIn 0.6s ease-out;
+    }
+    
+    .success-icon {
+      margin: 0 auto 20px;
+      width: 100px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: scaleIn 0.8s;
+    }
+    
+    .success-icon svg {
+      animation: drawCircle 1.2s ease-in-out;
+    }
+    
+    .success-message h2 {
+      color: #2e7d32;
+      margin-bottom: 15px;
+      font-size: 24px;
+      font-weight: 600;
+    }
+    
+    .success-message p {
+      color: #555;
+      font-size: 16px;
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+    
+    .success-decoration {
+      position: absolute;
+      bottom: -30px;
+      right: -30px;
+      opacity: 0.08;
+    }
+    
+    .decoration-circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: #4CAF50;
+      position: absolute;
+    }
+    
+    .decoration-circle:nth-child(1) {
+      top: 0;
+      left: 0;
+    }
+    
+    .decoration-circle:nth-child(2) {
+      top: 30px;
+      left: 50px;
+      width: 80px;
+      height: 80px;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes scaleIn {
+      0% { transform: scale(0); opacity: 0; }
+      80% { transform: scale(1.1); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    
+    @keyframes drawCircle {
+      0% { stroke-dasharray: 0, 100; }
+      100% { stroke-dasharray: 100, 100; }
+    }
+  </style>
+`;
+
+  form.insertAdjacentHTML("afterend", successHTML);
 }
 
 // --- Показать Учебник ---
@@ -519,6 +837,7 @@ async function init() {
   btnTextbook.addEventListener("click", () => showTextbook());
   btnKnowledgeBase.addEventListener("click", showKnowledgeBase);
   btnGlossary.addEventListener("click", showGlossary);
+  btnFeedback.addEventListener("click", showFeedback);
 
   // Экспорт функции для вызова из содержания
   window.showTextbook = showTextbook;
