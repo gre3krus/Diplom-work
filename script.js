@@ -129,7 +129,7 @@ const knowledgeBaseContent = `
 const glossaryContent = `
   <h1>Глоссарий</h1>
   <div class="glossary-container">
-    <p class="glossary-intro">Здесь собраны ключевые терминов курса «Инженерная компьютерная графика» с подробными определениями.</p>
+    <p class="glossary-intro">Здесь собраны ключевые термины курса «Инженерная компьютерная графика» с подробными определениями.</p>
     
     <div class="glossary-grid">
       <!-- Ряд 1 -->
@@ -320,6 +320,8 @@ const glossaryContent = `
     }
   </style>
 `;
+
+// Контент для обратной связи
 
 const feedbackContent = `
   <div class="feedback-page">
@@ -674,10 +676,11 @@ const feedbackContent = `
 `;
 
 // --- Генерация списка содержания ---
+// --- Генерация списка содержания ---
 function generateContentList() {
   return `
     <h1>Содержание</h1>
-    <ul class="content-list">
+<ul class="content-list">
       ${textbookChapters
         .map(
           (ch) => `
@@ -686,6 +689,57 @@ function generateContentList() {
         )
         .join("")}
     </ul>
+    <div class="content-navigation">
+      <a href="pages/lectures/lectures.html" class="content-link">
+        <span id="lectures-btn-content">
+          <p class="material-icons">menu_book</p>
+          Лекции
+        </span>
+      </a>
+      <a href="pages/practical/practical.html" class="content-link">
+        <span id="practical-btn-content">
+          <p class="material-icons">science</p>
+          Практические
+        </span>
+      </a>
+      <a href="pages/tests/tests.html" class="content-link">
+        <span id="tests-btn-content">
+          <p class="material-icons">quiz</p>
+          Тесты
+        </span>
+      </a>
+    </div>
+
+    <style>
+    .content-navigation {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.content-link {
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease;
+}
+
+.content-link:hover {
+  transform: scale(1.05);
+}
+
+#lectures-btn-content, #practical-btn-content, #tests-btn-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #f1f1f1;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+    </style>
   `;
 }
 
