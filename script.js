@@ -676,7 +676,6 @@ const feedbackContent = `
 `;
 
 // --- Генерация списка содержания ---
-// --- Генерация списка содержания ---
 function generateContentList() {
   return `
     <h1>Содержание</h1>
